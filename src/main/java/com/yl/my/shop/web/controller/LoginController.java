@@ -1,65 +1,43 @@
 package com.yl.my.shop.web.controller;
 
-import com.yl.my.shop.commons.context.SpringContext;
-import com.yl.my.shop.commons.utils.CookieUtils;
 import com.yl.my.shop.entity.User;
 import com.yl.my.shop.service.UserService;
-import org.apache.commons.lang3.StringUtils;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * @author: yl
  * @version: 1.0
- * @date: 2021-11-29  10:46
+ * @date: 2021-12-2  11:05
  */
-public class LoginController extends HttpServlet {
+@Controller
+public class LoginController {
 
-    private UserService userService=SpringContext.getBean("userService");
-    private static final String COOKIE_NAME_USER_INFO="userInfo";
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String userInfo = CookieUtils.getCookieValue(req, COOKIE_NAME_USER_INFO);
-        if (!StringUtils.isBlank(userInfo)){
-            String[] userInfoArray = userInfo.split(":");
-            String email=userInfoArray[0];
-            String password=userInfoArray[1];
-            req.setAttribute("email",email);
-            req.setAttribute("password",password);
-            req.setAttribute("checkRemember",true);
-        }
-        req.getRequestDispatcher("/login.jsp").forward(req,resp);
+    @Autowired
+    private UserService userService;
+
+    @RequestMapping(value={"","login"},method = RequestMethod.GET)
+    //失败时跳转到login
+    public String login(){
+        return "login";
     }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        String email = req.getParameter("email");
-        String password=req.getParameter("password");
-        boolean checkRemember = req.getParameter("checkRemember")==null?false:true;
-
-
-        User admin = userService.login(email, password);
-        //登录成功
-        if (admin!=null){
-            //成功则保存cookie,设置存储时间为一周
-            if (checkRemember){
-                CookieUtils.setCookie(req,resp,COOKIE_NAME_USER_INFO,String.format("%s:%s",email,password),7*24*60*60);
-            }
-            //用户选择不记住,则不保存cookie
-            if(!checkRemember){
-                CookieUtils.deleteCookie(req,resp,COOKIE_NAME_USER_INFO);
-            }
-            resp.sendRedirect("/main.jsp");
-        }
+    //@RequestParam(Request==true)调用方法必须请求参数
+    @RequestMapping(value="login",method = RequestMethod.POST)
+    public String login(@RequestParam(required=true) String email, @RequestParam(required = true) String password) {
+        User user = userService.login(email, password);
         //登录失败
-        else{
-            req.setAttribute("message","用户名或密码错误！");
-            req.getRequestDispatcher("/index.jsp").forward(req,resp);
+        if (user == null) {
+            return login();
         }
+        //登录成功
+        else {
+            return "redirect:/main";
+        }
+
+
     }
 }

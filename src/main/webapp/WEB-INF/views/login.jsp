@@ -15,15 +15,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>我的商城 | 登录</title>
     <!-- Bootstrap 3.3.7 -->
-    <link rel="stylesheet" href="../../assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="../../assets/bower_components/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="static/assets/bower_components/font-awesome/css/font-awesome.css">
     <!-- Ionicons -->
-    <link rel="stylesheet" href="../../assets/bower_components/Ionicons/css/ionicons.min.css">
+    <link rel="stylesheet" href="static/assets/bower_components/Ionicons/css/ionicons.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="../../assets/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="static/assets/css/AdminLTE.min.css">
     <!-- iCheck -->
-    <link rel="stylesheet" href="../../assets/plugins/iCheck/square/blue.css">
+    <link rel="stylesheet" href="static/assets/plugins/iCheck/square/blue.css">
 
 </head>
 <!--head end-->
@@ -86,11 +86,11 @@
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 <!-- jQuery 3 -->
-<script src="../../assets/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="static/assets/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
-<script src="../../assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="static/assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- iCheck -->
-<script src="../../assets/plugins/iCheck/icheck.min.js"></script>
+<script src="static/assets/plugins/iCheck/icheck.min.js"></script>
 <script>
     $(function () {
         $('input').iCheck({
