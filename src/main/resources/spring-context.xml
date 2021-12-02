@@ -11,5 +11,8 @@
     <bean id="userService" class="com.yl.my.shop.service.impl.UserServiceImpl"/>-->
     <!--添加注解扫描注入-->
     <context:annotation-config/>
-    <context:component-scan base-package="com.yl.my.shop"/>
+    <context:component-scan base-package="com.yl.my.shop">
+        <!--不扫描@Controller,在springmvc中只扫描@Controller-->
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
 </beans>
